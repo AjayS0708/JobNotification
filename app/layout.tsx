@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import Navigation from '@/components/Navigation'
 
 export const metadata: Metadata = {
-  title: 'KodNest Premium Build System',
-  description: 'Professional SaaS design system for serious B2C products',
+  title: 'KodNest Job Notification Tracker',
+  description: 'Professional job notification tracking system built with KodNest Premium Design System',
 }
 
 export default function RootLayout({
@@ -13,7 +14,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Navigation />
+        <main className="min-h-screen bg-background">
+          <div className="max-w-[1440px] mx-auto px-40 py-64">
+            {children}
+          </div>
+        </main>
+      </body>
     </html>
   )
 }
