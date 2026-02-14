@@ -20,7 +20,7 @@ export default function DashboardPage() {
   const [mode, setMode] = useState('all')
   const [experience, setExperience] = useState('all')
   const [source, setSource] = useState('all')
-  const [sortBy, setSortBy] = useState('latest')
+  const [sortBy, setSortBy] = useState('matchScore')
   const [showOnlyMatches, setShowOnlyMatches] = useState(false)
 
   // Load saved jobs and preferences from localStorage
