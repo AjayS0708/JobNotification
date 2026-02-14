@@ -1,9 +1,11 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { Job } from '@/data/jobs'
 import Button from './Button'
 import Badge from './Badge'
 import { getMatchScoreBadgeStyle } from '@/utils/matchScore'
+import { JobStatus, getJobStatus, setJobStatus, statusColors, statusBadgeColors } from '@/utils/statusTracker'
 
 interface JobCardProps {
   job: Job
@@ -12,11 +14,34 @@ interface JobCardProps {
   onView: () => void
   onSave: () => void
   isSaved: boolean
+  onStatusChange?: (status: JobStatus) => void
 }
 
-export default function JobCard({ job, matchScore = 0, showMatchScore = false, onView, onSave, isSaved }: JobCardProps) {
+export default function JobCard({ job, matchScore = 0, showMatchScore = false, onView, onSave, isSaved, onStatusChange }: JobCardProps) {
+  const [currentStatus, setCurrentStatus] = useState<JobStatus>('Not Applied')
+  const [isMounted, setIsMounted] = useState(false)
+
+  // Load status from localStorage after component mounts (client-side only)
+  useEffect(() => {
+    setIsMounted(true)
+    setCurrentStatus(getJobStatus(job.id))
+  }, [job.id])
+
   const handleApply = () => {
     window.open(job.applyUrl, '_blank')
+    
+    // Auto-update status to "Applied" if not already set
+    if (currentStatus === 'Not Applied') {
+      handleStatusChange('Applied')
+    }
+  }
+
+  const handleStatusChange = (status: JobStatus) => {
+    setCurrentStatus(status)
+    setJobStatus(job.id, status)
+    if (onStatusChange) {
+      onStatusChange(status)
+    }
   }
 
   const getSourceColor = (source: string) => {
@@ -48,12 +73,22 @@ export default function JobCard({ job, matchScore = 0, showMatchScore = false, o
             </p>
           </div>
           <div className="flex flex-col gap-8 items-end">
-            <span 
-              className={`px-16 py-8 font-sans text-sm font-medium rounded-md ${getSourceColor(job.source)}`}
-              style={{ borderRadius: '6px' }}
-            >
-              {job.source}
-            </span>
+            <div className="flex gap-8 items-center">
+              <span 
+                className={`px-16 py-8 font-sans text-sm font-medium rounded-md ${getSourceColor(job.source)}`}
+                style={{ borderRadius: '6px' }}
+              >
+                {job.source}
+              </span>
+              {isMounted && (
+                <span 
+                  className={`px-16 py-8 font-sans text-sm font-medium rounded-md text-white ${statusBadgeColors[currentStatus]}`}
+                  style={{ borderRadius: '6px' }}
+                >
+                  {currentStatus}
+                </span>
+              )}
+            </div>
             {showMatchScore && (
               <span 
                 className="px-16 py-8 font-sans text-sm font-bold rounded-md shadow-sm"
@@ -95,6 +130,49 @@ export default function JobCard({ job, matchScore = 0, showMatchScore = false, o
           <p className="font-sans text-sm text-[#999999]">
             Posted {getDaysAgoText(job.postedDaysAgo)}
           </p>
+        </div>
+
+        {/* Status Buttons */}
+        <div className="space-y-8">
+          <p className="font-sans text-xs font-semibold text-[#666666] uppercase tracking-wide">Application Status</p>
+          <div className="grid grid-cols-2 gap-8">
+            {(['Not Applied', 'Applied', 'Rejected', 'Selected'] as JobStatus[]).map((status) => {
+              const isActive = currentStatus === status
+              const getColorClasses = (status: JobStatus) => {
+                switch (status) {
+                  case 'Not Applied':
+                    return isActive 
+                      ? 'bg-[#9CA3AF] text-white border-[#6B7280]'
+                      : 'bg-white text-[#6B7280] border-[#D1D5DB] hover:border-[#9CA3AF]'
+                  case 'Applied':
+                    return isActive
+                      ? 'bg-[#3B82F6] text-white border-[#2563EB]'
+                      : 'bg-white text-[#3B82F6] border-[#93C5FD] hover:border-[#3B82F6]'
+                  case 'Rejected':
+                    return isActive
+                      ? 'bg-[#EF4444] text-white border-[#DC2626]'
+                      : 'bg-white text-[#EF4444] border-[#FCA5A5] hover:border-[#EF4444]'
+                  case 'Selected':
+                    return isActive
+                      ? 'bg-[#10B981] text-white border-[#059669]'
+                      : 'bg-white text-[#10B981] border-[#6EE7B7] hover:border-[#10B981]'
+                }
+              }
+              
+              return (
+                <button
+                  key={status}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleStatusChange(status)
+                  }}
+                  className={`px-12 py-8 text-xs font-medium border transition-all duration-200 rounded-md ${getColorClasses(status)} ${isActive ? 'font-semibold' : ''}`}
+                >
+                  {status}
+                </button>
+              )
+            })}
+          </div>
         </div>
 
         {/* Actions */}

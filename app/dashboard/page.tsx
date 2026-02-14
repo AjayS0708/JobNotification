@@ -7,9 +7,17 @@ import JobModal from '@/components/JobModal'
 import Card from '@/components/Card'
 import Input from '@/components/Input'
 import Checkbox from '@/components/Checkbox'
+import Toast from '@/components/Toast'
 import { calculateMatchScore, getPreferencesFromStorage, JobPreferences } from '@/utils/matchScore'
+import { JobStatus, getJobStatus } from '@/utils/statusTracker'
 
 type JobWithScore = Job & { matchScore: number }
+
+interface ToastData {
+  id: string
+  message: string
+  type: 'success' | 'info' | 'warning' | 'error'
+}
 
 export default function DashboardPage() {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null)
@@ -20,8 +28,19 @@ export default function DashboardPage() {
   const [mode, setMode] = useState('all')
   const [experience, setExperience] = useState('all')
   const [source, setSource] = useState('all')
+  const [status, setStatus] = useState('all')
   const [sortBy, setSortBy] = useState('matchScore')
   const [showOnlyMatches, setShowOnlyMatches] = useState(false)
+  const [toasts, setToasts] = useState<ToastData[]>([])
+
+  const showToast = (message: string, type: 'success' | 'info' | 'warning' | 'error' = 'success') => {
+    const id = Date.now().toString()
+    setToasts(prev => [...prev, { id, message, type }])
+  }
+
+  const removeToast = (id: string) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id))
+  }
 
   // Load saved jobs and preferences from localStorage
   useEffect(() => {
@@ -90,6 +109,11 @@ export default function DashboardPage() {
       filtered = filtered.filter(job => job.source === source)
     }
 
+    // Filter by status (AND)
+    if (status !== 'all') {
+      filtered = filtered.filter(job => getJobStatus(job.id) === status)
+    }
+
     // Filter by match threshold (AND)
     if (showOnlyMatches && preferences) {
       filtered = filtered.filter(job => job.matchScore >= preferences.minMatchScore)
@@ -112,7 +136,7 @@ export default function DashboardPage() {
     }
 
     return filtered
-  }, [jobsWithScores, keyword, location, mode, experience, source, sortBy, showOnlyMatches, preferences])
+  }, [jobsWithScores, keyword, location, mode, experience, source, status, sortBy, showOnlyMatches, preferences])
 
   return (
     <div className="max-w-[1400px] mx-auto space-y-40">
@@ -230,6 +254,20 @@ export default function DashboardPage() {
             </select>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-16">
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="px-16 py-16 border border-[#E5E7EB] bg-white font-sans text-body-base text-primary transition-all duration-200 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-opacity-20 rounded-lg shadow-sm cursor-pointer"
+            >
+              <option value="all">All Statuses</option>
+              <option value="Not Applied">Not Applied</option>
+              <option value="Applied">Applied</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Selected">Selected</option>
+            </select>
+          </div>
+
           {/* Show only matches toggle */}
           {preferences && (
             <div className="pt-16 border-t border-border">
@@ -259,6 +297,7 @@ export default function DashboardPage() {
               onView={() => setSelectedJob(job)}
               onSave={() => handleSaveJob(job.id)}
               isSaved={savedJobs.includes(job.id)}
+              onStatusChange={(status) => showToast(`Status updated: ${status}`, 'success')}
             />
           ))}
         </div>
@@ -290,6 +329,16 @@ export default function DashboardPage() {
         onSave={() => selectedJob && handleSaveJob(selectedJob.id)}
         isSaved={selectedJob ? savedJobs.includes(selectedJob.id) : false}
       />
+
+      {/* Toasts */}
+      {toasts.map((toast) => (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onClose={() => removeToast(toast.id)}
+        />
+      ))}
     </div>
   )
 }

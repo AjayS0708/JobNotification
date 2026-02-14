@@ -10,6 +10,7 @@ import {
   getPreferencesFromStorage,
   JobPreferences,
 } from '@/utils/matchScore'
+import { getStatusHistory, statusBadgeColors } from '@/utils/statusTracker'
 
 type DigestItem = {
   id: string
@@ -43,11 +44,13 @@ export default function DigestPage() {
   const [digest, setDigest] = useState<DigestPayload | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   const todayKey = useMemo(() => getTodayKey(), [])
   const digestStorageKey = `jobTrackerDigest_${todayKey}`
 
   useEffect(() => {
+    setIsMounted(true)
     const prefs = getPreferencesFromStorage()
     setPreferences(prefs)
 
@@ -158,6 +161,29 @@ export default function DigestPage() {
   }
 
   const showNoMatches = digest && digestJobs.length === 0
+
+  // Get status history
+  const statusHistory = useMemo(() => {
+    const history = getStatusHistory()
+    return history.slice(0, 10).map(update => {
+      const job = jobLookup.get(update.jobId)
+      return job ? { ...update, job } : null
+    }).filter((item): item is typeof history[0] & { job: Job } => item !== null)
+  }, [jobLookup])
+
+  const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp)
+    const today = new Date()
+    const yesterday = new Date(today)
+    yesterday.setDate(yesterday.getDate() - 1)
+    
+    if (date.toDateString() === today.toDateString()) {
+      return `Today at ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`
+    } else if (date.toDateString() === yesterday.toDateString()) {
+      return `Yesterday at ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`
+    }
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+  }
 
   return (
     <div className="max-w-[1200px] mx-auto space-y-32">
@@ -286,6 +312,72 @@ export default function DigestPage() {
             </div>
           </div>
         </Card>
+      )}
+
+      {/* Status History Section */}
+      {isMounted && (
+        <Card padding="lg" className="bg-white">
+          <div className="space-y-24">
+            <div className="flex items-center gap-12">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <h2 className="font-serif text-heading-md text-primary">
+                Recent Status Updates
+              </h2>
+            </div>
+
+            {statusHistory.length === 0 ? (
+              <div className="min-h-[200px] flex items-center justify-center">
+                <div className="text-center space-y-12">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#CCCCCC" strokeWidth="1.5" className="mx-auto">
+                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                  <p className="font-sans text-body-base text-[#999999]">
+                    No status updates yet. Update job statuses to track your applications.
+                  </p>
+                </div>
+              </div>
+            ) : (
+            <div className="space-y-16">
+              {statusHistory.map((update, index) => (
+                <div
+                  key={`${update.jobId}-${update.timestamp}`}
+                  className="flex items-start gap-16 p-20 border border-[#E5E7EB] rounded-lg hover:border-accent transition-all duration-200"
+                >
+                  <div className="flex-1 space-y-8">
+                    <div className="flex items-start justify-between gap-16">
+                      <div>
+                        <h3 className="font-sans text-[16px] font-semibold text-primary">
+                          {update.job.title}
+                        </h3>
+                        <p className="font-sans text-sm text-[#666666]">
+                          {update.job.company}
+                        </p>
+                      </div>
+                      <span
+                        className={`px-12 py-6 text-xs font-bold rounded-full ${statusBadgeColors[update.status]}`}
+                        style={{ color: 'white', whiteSpace: 'nowrap' }}
+                      >
+                        {update.status}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-12 text-xs text-[#999999]">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                      </svg>
+                      <span>{formatDate(update.timestamp)}</span>
+                      <span className="text-[#CCCCCC]">•</span>
+                      <span>{update.job.location}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </Card>
       )}
     </div>
   )
