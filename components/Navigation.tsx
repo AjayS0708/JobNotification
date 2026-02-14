@@ -16,7 +16,7 @@ const navLinks: NavLink[] = [
   { href: '/saved', label: 'Saved' },
   { href: '/digest', label: 'Digest' },
   { href: '/settings', label: 'Settings' },
-  { href: '/proof', label: 'Proof' },
+  { href: '/jt/09-proof', label: 'Proof' },
   { href: '/jt/07-test', label: 'Test' },
   { href: '/jt/08-ship', label: 'Ship', requiresTests: true },
 ]
