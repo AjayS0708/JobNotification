@@ -11,7 +11,7 @@ export default function Card({ children, className, padding = 'md' }: CardProps)
   return (
     <div
       className={clsx(
-        'bg-surface-light border border-border transition-standard',
+        'bg-white border border-[#E5E7EB] transition-standard rounded-lg shadow-sm',
         {
           'p-16': padding === 'sm',
           'p-24': padding === 'md',

@@ -18,17 +18,17 @@ export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <nav className="border-b border-border bg-surface-light">
-      <div className="max-w-[1440px] mx-auto px-40 py-16">
+    <nav className="border-b border-[#E5E7EB] bg-white">
+      <div className="max-w-[1440px] mx-auto px-40 py-24">
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-40">
+        <div className="hidden md:flex items-center justify-between">
           <Link 
             href="/" 
-            className="font-serif text-heading-sm text-primary hover:text-accent transition-standard"
+            className="font-serif text-[36px] font-bold tracking-tight text-primary hover:text-accent transition-all duration-200"
           >
             KodNest
           </Link>
-          <div className="flex gap-40">
+          <div className="flex items-center gap-4">
             {navLinks.map((link) => {
               const isActive = pathname === link.href
               return (
@@ -36,11 +36,10 @@ export default function Navigation() {
                   key={link.href}
                   href={link.href}
                   className={clsx(
-                    'font-sans text-body-base font-medium transition-standard pb-8',
-                    'border-b-2',
+                    'font-sans text-[15px] font-medium transition-all duration-200 px-24 py-12 rounded-lg text-center w-[120px]',
                     {
-                      'text-accent border-accent': isActive,
-                      'text-primary border-transparent hover:text-accent': !isActive,
+                      'text-white bg-accent shadow-sm': isActive,
+                      'text-[#374151] hover:bg-[#F3F4F6] hover:text-primary': !isActive,
                     }
                   )}
                 >

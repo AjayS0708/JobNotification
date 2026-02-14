@@ -23,11 +23,11 @@ export default function Input({
       )}
       <input
         className={clsx(
-          'px-16 py-16 border-2 border-border bg-surface-light',
+          'px-16 py-16 border border-[#E5E7EB] bg-white rounded-lg shadow-sm',
           'font-sans text-body-base text-primary',
-          'transition-standard',
-          'focus:border-primary focus:outline-none',
-          'placeholder:text-[#999999]',
+          'transition-all duration-200',
+          'focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-opacity-20',
+          'placeholder:text-[#9CA3AF]',
           {
             'border-accent': error,
             'w-full': fullWidth,

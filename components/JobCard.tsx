@@ -3,15 +3,18 @@
 import { Job } from '@/data/jobs'
 import Button from './Button'
 import Badge from './Badge'
+import { getMatchScoreBadgeStyle } from '@/utils/matchScore'
 
 interface JobCardProps {
   job: Job
+  matchScore?: number
+  showMatchScore?: boolean
   onView: () => void
   onSave: () => void
   isSaved: boolean
 }
 
-export default function JobCard({ job, onView, onSave, isSaved }: JobCardProps) {
+export default function JobCard({ job, matchScore = 0, showMatchScore = false, onView, onSave, isSaved }: JobCardProps) {
   const handleApply = () => {
     window.open(job.applyUrl, '_blank')
   }
@@ -32,7 +35,7 @@ export default function JobCard({ job, onView, onSave, isSaved }: JobCardProps) 
   }
 
   return (
-    <div className="border border-border bg-surface-light p-24 transition-standard hover:border-accent">
+    <div className="border border-[#E5E7EB] bg-white p-24 transition-all duration-200 hover:border-accent hover:shadow-md rounded-lg">
       <div className="space-y-16">
         {/* Header */}
         <div className="flex items-start justify-between gap-16">
@@ -44,9 +47,26 @@ export default function JobCard({ job, onView, onSave, isSaved }: JobCardProps) 
               {job.company}
             </p>
           </div>
-          <span className={`px-16 py-8 font-sans text-sm font-medium ${getSourceColor(job.source)}`}>
-            {job.source}
-          </span>
+          <div className="flex flex-col gap-8 items-end">
+            <span 
+              className={`px-16 py-8 font-sans text-sm font-medium rounded-md ${getSourceColor(job.source)}`}
+              style={{ borderRadius: '6px' }}
+            >
+              {job.source}
+            </span>
+            {showMatchScore && (
+              <span 
+                className="px-16 py-8 font-sans text-sm font-bold rounded-md shadow-sm"
+                style={{
+                  ...getMatchScoreBadgeStyle(matchScore),
+                  borderRadius: '6px',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+                }}
+              >
+                {matchScore}% Match
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Details */}
@@ -65,11 +85,8 @@ export default function JobCard({ job, onView, onSave, isSaved }: JobCardProps) 
             </svg>
             <span>{job.experience} years</span>
           </div>
-          <div className="flex items-center gap-8 font-sans text-body-base text-accent font-medium">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M6 3v18M10 3v18M9 8h8M9 12h8M9 16h8" />
-            </svg>
-            <span>{job.salaryRange}</span>
+          <div className="font-sans text-[15px] text-[#374151] font-semibold">
+            {job.salaryRange}
           </div>
         </div>
 
