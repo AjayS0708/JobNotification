@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KodNest Premium Build System - Demo</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="project-name">Dashboard Rebuild</span>
+    </div>
+    <div class="topbar-center">
+      <span class="progress-text">Step 2 / 5</span>
+    </div>
+    <div class="topbar-right">
+      <span class="badge badge-inprogress">In Progress</span>
+    </div>
+  </header>
+
+  <!-- CONTEXT HEADER -->
+  <section class="context-header">
+    <h1 class="context-header-title">Build the authentication flow</h1>
+    <p class="context-header-subtitle">Create a secure login and registration system with proper validation and error handling.</p>
+  </section>
+
+  <!-- MAIN WORKSPACE LAYOUT -->
+  <div class="workspace-layout">
+    
+    <!-- PRIMARY WORKSPACE (70%) -->
+    <main class="primary-workspace">
+      
+      <div class="card card-spacious" style="margin-bottom: 24px;">
+        <h3>User Login Form</h3>
+        <p class="text-muted text-small">Enter your credentials to access your account</p>
+        
+        <div style="margin-top: 24px;">
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Email Address</label>
+            <input type="email" class="input" placeholder="you@example.com">
+          </div>
+          
+          <div style="margin-bottom: 24px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Password</label>
+            <input type="password" class="input" placeholder="••••••••">
+          </div>
+          
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary">Sign In</button>
+            <button class="btn btn-secondary">Create Account</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXAMPLE: Error State -->
+      <div class="error-message" style="margin-bottom: 24px;">
+        <div class="error-title">Authentication Failed</div>
+        <div class="error-description">The email or password you entered is incorrect.</div>
+        <div class="error-solution">→ Double-check your credentials and try again, or reset your password.</div>
+      </div>
+
+      <!-- EXAMPLE: Empty State -->
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="empty-state">
+          <h3 class="empty-state-title">No Sessions Active</h3>
+          <p class="empty-state-description">You haven't logged in from any devices yet.</p>
+          <button class="btn btn-secondary btn-small">Refresh Status</button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- SECONDARY PANEL (30%) -->
+    <aside class="secondary-panel">
+      
+      <!-- Step Explanation -->
+      <div class="panel-section">
+        <h4 class="panel-section-title">What to build</h4>
+        <p class="panel-section-description">
+          Set up email and password authentication with proper field validation. Include error messages for failed attempts.
+        </p>
+      </div>
+
+      <!-- Prompt Box -->
+      <div class="panel-section">
+        <h4 class="panel-section-title">Prompt</h4>
+        <div class="code-box" style="margin-bottom: 8px;">
+          Create a login form with email and password fields. Add validation and show error messages when authentication fails.
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="panel-section">
+        <div class="panel-actions">
+          <button class="btn btn-secondary btn-small">Copy Prompt</button>
+          <button class="btn btn-secondary btn-small">Build in Lovable</button>
+          <button class="btn btn-primary btn-small">It Worked</button>
+          <button class="btn btn-secondary btn-small">Report Error</button>
+          <button class="btn btn-secondary btn-small">Add Screenshot</button>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- PROOF FOOTER -->
+  <footer class="proof-footer">
+    <div class="proof-checklist">
+      <label class="checkbox-item">
+        <input type="checkbox" class="checkbox">
+        <span class="checkbox-label">UI Built</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" class="checkbox">
+        <span class="checkbox-label">Logic Working</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" class="checkbox">
+        <span class="checkbox-label">Test Passed</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" class="checkbox">
+        <span class="checkbox-label">Deployed</span>
+      </label>
+    </div>
+  </footer>
+
+</body>
+</html>

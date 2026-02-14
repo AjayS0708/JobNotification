@@ -1,0 +1,47 @@
+/* ============================================
+   KODNEST PREMIUM BUILD SYSTEM - DESIGN TOKENS
+   ============================================ */
+
+:root {
+  /* COLOR SYSTEM - Maximum 4 colors */
+  --color-background: #F7F6F3;
+  --color-text-primary: #111111;
+  --color-accent: #8B0000;
+  --color-success: #4A5F4A;
+  --color-warning: #A67C52;
+  --color-border: #D4D2CC;
+  --color-surface: #FFFFFF;
+  
+  /* TYPOGRAPHY */
+  --font-serif: 'Playfair Display', 'Georgia', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  --font-size-body: 17px;
+  --font-size-h1: 48px;
+  --font-size-h2: 36px;
+  --font-size-h3: 28px;
+  --font-size-h4: 20px;
+  --font-size-small: 14px;
+  
+  --line-height-body: 1.7;
+  --line-height-heading: 1.2;
+  
+  --text-width-max: 720px;
+  
+  /* SPACING SYSTEM - Consistent scale only */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+  
+  /* INTERACTION */
+  --transition-speed: 180ms;
+  --transition-timing: ease-in-out;
+  --border-radius: 4px;
+  
+  /* LAYOUT */
+  --topbar-height: 64px;
+  --workspace-width: 70%;
+  --panel-width: 30%;
+}

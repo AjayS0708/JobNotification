@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Components - KodNest Premium Build System</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    .component-section {
+      margin-bottom: 64px;
+    }
+    .component-example {
+      padding: 24px;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      margin-bottom: 16px;
+    }
+    .component-code {
+      font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+      font-size: 13px;
+      background-color: #111111;
+      color: #F7F6F3;
+      padding: 16px;
+      border-radius: var(--border-radius);
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="project-name">Component Reference</span>
+    </div>
+    <div class="topbar-center">
+      <span class="progress-text">KodNest Premium Build System</span>
+    </div>
+    <div class="topbar-right">
+      <span class="badge badge-default">v1.0.0</span>
+    </div>
+  </header>
+
+  <section class="context-header">
+    <h1 class="context-header-title">Component Library</h1>
+    <p class="context-header-subtitle">All available components with usage examples. Copy and adapt as needed.</p>
+  </section>
+
+  <div style="max-width: 1200px; margin: 0 auto; padding: 64px 40px;">
+
+    <!-- TYPOGRAPHY -->
+    <section class="component-section">
+      <h2>Typography</h2>
+      <div class="component-example">
+        <h1>Heading 1 - Serif, 48px</h1>
+        <h2>Heading 2 - Serif, 36px</h2>
+        <h3>Heading 3 - Serif, 28px</h3>
+        <h4>Heading 4 - Serif, 20px</h4>
+        <p>Body text - Sans-serif, 17px, line-height 1.7. Maximum width of 720px for optimal readability. This is the default paragraph style used throughout the system.</p>
+        <p class="text-small">Small text - 14px for helper text and labels</p>
+      </div>
+    </section>
+
+    <!-- BUTTONS -->
+    <section class="component-section">
+      <h2>Buttons</h2>
+      <div class="component-example">
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+          <button class="btn btn-primary">Primary Button</button>
+          <button class="btn btn-secondary">Secondary Button</button>
+          <button class="btn btn-primary btn-small">Small Primary</button>
+          <button class="btn btn-secondary btn-small">Small Secondary</button>
+        </div>
+      </div>
+      <div class="component-code">&lt;button class="btn btn-primary"&gt;Primary Button&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;Secondary Button&lt;/button&gt;
+&lt;button class="btn btn-small"&gt;Small Button&lt;/button&gt;</div>
+    </section>
+
+    <!-- BADGES -->
+    <section class="component-section">
+      <h2>Badges</h2>
+      <div class="component-example">
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+          <span class="badge badge-notstarted">Not Started</span>
+          <span class="badge badge-inprogress">In Progress</span>
+          <span class="badge badge-shipped">Shipped</span>
+          <span class="badge badge-default">Default</span>
+        </div>
+      </div>
+      <div class="component-code">&lt;span class="badge badge-notstarted"&gt;Not Started&lt;/span&gt;
+&lt;span class="badge badge-inprogress"&gt;In Progress&lt;/span&gt;
+&lt;span class="badge badge-shipped"&gt;Shipped&lt;/span&gt;</div>
+    </section>
+
+    <!-- INPUTS -->
+    <section class="component-section">
+      <h2>Inputs</h2>
+      <div class="component-example">
+        <div style="max-width: 400px;">
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Text Input</label>
+            <input type="text" class="input" placeholder="Enter text here">
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Text Area</label>
+            <textarea class="textarea" placeholder="Enter longer text here"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="component-code">&lt;input type="text" class="input" placeholder="Enter text"&gt;
+&lt;textarea class="textarea" placeholder="Enter longer text"&gt;&lt;/textarea&gt;</div>
+    </section>
+
+    <!-- CARDS -->
+    <section class="component-section">
+      <h2>Cards</h2>
+      <div class="component-example">
+        <div class="card" style="margin-bottom: 16px;">
+          <h4>Default Card</h4>
+          <p>Standard padding (24px) for balanced content.</p>
+        </div>
+        <div class="card card-compact" style="margin-bottom: 16px;">
+          <h4>Compact Card</h4>
+          <p>Reduced padding (16px) for tighter layouts.</p>
+        </div>
+        <div class="card card-spacious">
+          <h4>Spacious Card</h4>
+          <p>Generous padding (40px) for emphasis.</p>
+        </div>
+      </div>
+      <div class="component-code">&lt;div class="card"&gt;Content&lt;/div&gt;
+&lt;div class="card card-compact"&gt;Content&lt;/div&gt;
+&lt;div class="card card-spacious"&gt;Content&lt;/div&gt;</div>
+    </section>
+
+    <!-- CHECKBOXES -->
+    <section class="component-section">
+      <h2>Checkboxes</h2>
+      <div class="component-example">
+        <label class="checkbox-item">
+          <input type="checkbox" class="checkbox">
+          <span class="checkbox-label">Unchecked Item</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" class="checkbox" checked>
+          <span class="checkbox-label">Checked Item</span>
+        </label>
+      </div>
+      <div class="component-code">&lt;label class="checkbox-item"&gt;
+  &lt;input type="checkbox" class="checkbox"&gt;
+  &lt;span class="checkbox-label"&gt;Task Name&lt;/span&gt;
+&lt;/label&gt;</div>
+    </section>
+
+    <!-- CODE BOX -->
+    <section class="component-section">
+      <h2>Code Box</h2>
+      <div class="component-example">
+        <div class="code-box">
+          npm install @kodnest/build-system
+        </div>
+      </div>
+      <div class="component-code">&lt;div class="code-box"&gt;
+  npm install @kodnest/build-system
+&lt;/div&gt;</div>
+    </section>
+
+    <!-- ERROR MESSAGE -->
+    <section class="component-section">
+      <h2>Error Message</h2>
+      <div class="component-example">
+        <div class="error-message">
+          <div class="error-title">Connection Failed</div>
+          <div class="error-description">Unable to reach the server. This might be due to network issues or server maintenance.</div>
+          <div class="error-solution">→ Check your internet connection and try again in a moment.</div>
+        </div>
+      </div>
+      <div class="component-code">&lt;div class="error-message"&gt;
+  &lt;div class="error-title"&gt;What went wrong&lt;/div&gt;
+  &lt;div class="error-description"&gt;Why it happened&lt;/div&gt;
+  &lt;div class="error-solution"&gt;→ How to fix it&lt;/div&gt;
+&lt;/div&gt;</div>
+    </section>
+
+    <!-- EMPTY STATE -->
+    <section class="component-section">
+      <h2>Empty State</h2>
+      <div class="component-example">
+        <div class="card">
+          <div class="empty-state">
+            <h3 class="empty-state-title">No Projects Yet</h3>
+            <p class="empty-state-description">Create your first project to get started building.</p>
+            <button class="btn btn-secondary btn-small">Create Project</button>
+          </div>
+        </div>
+      </div>
+      <div class="component-code">&lt;div class="empty-state"&gt;
+  &lt;h3 class="empty-state-title"&gt;Nothing here yet&lt;/h3&gt;
+  &lt;p class="empty-state-description"&gt;What this space is for&lt;/p&gt;
+  &lt;button class="btn btn-secondary"&gt;Next Action&lt;/button&gt;
+&lt;/div&gt;</div>
+    </section>
+
+    <!-- SPACING SCALE -->
+    <section class="component-section">
+      <h2>Spacing Scale</h2>
+      <div class="component-example">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <code style="width: 120px;">--space-xs</code>
+            <div style="width: 8px; height: 24px; background-color: var(--color-accent);"></div>
+            <span>8px</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <code style="width: 120px;">--space-sm</code>
+            <div style="width: 16px; height: 24px; background-color: var(--color-accent);"></div>
+            <span>16px</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <code style="width: 120px;">--space-md</code>
+            <div style="width: 24px; height: 24px; background-color: var(--color-accent);"></div>
+            <span>24px</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <code style="width: 120px;">--space-lg</code>
+            <div style="width: 40px; height: 24px; background-color: var(--color-accent);"></div>
+            <span>40px</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <code style="width: 120px;">--space-xl</code>
+            <div style="width: 64px; height: 24px; background-color: var(--color-accent);"></div>
+            <span>64px</span>
+          </div>
+        </div>
+      </div>
+      <p class="text-small text-muted">Only use these values. Never use arbitrary spacing like 13px or 27px.</p>
+    </section>
+
+    <!-- COLOR PALETTE -->
+    <section class="component-section">
+      <h2>Color Palette</h2>
+      <div class="component-example">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+          <div>
+            <div style="width: 100%; height: 80px; background-color: #F7F6F3; border: 1px solid var(--color-border); border-radius: 4px;"></div>
+            <p style="margin-top: 8px; font-size: 14px;"><strong>Background</strong><br>#F7F6F3</p>
+          </div>
+          <div>
+            <div style="width: 100%; height: 80px; background-color: #111111; border-radius: 4px;"></div>
+            <p style="margin-top: 8px; font-size: 14px;"><strong>Text Primary</strong><br>#111111</p>
+          </div>
+          <div>
+            <div style="width: 100%; height: 80px; background-color: #8B0000; border-radius: 4px;"></div>
+            <p style="margin-top: 8px; font-size: 14px;"><strong>Accent</strong><br>#8B0000</p>
+          </div>
+          <div>
+            <div style="width: 100%; height: 80px; background-color: #4A5F4A; border-radius: 4px;"></div>
+            <p style="margin-top: 8px; font-size: 14px;"><strong>Success</strong><br>#4A5F4A</p>
+          </div>
+          <div>
+            <div style="width: 100%; height: 80px; background-color: #A67C52; border-radius: 4px;"></div>
+            <p style="margin-top: 8px; font-size: 14px;"><strong>Warning</strong><br>#A67C52</p>
+          </div>
+        </div>
+      </div>
+      <p class="text-small text-muted">Maximum 4 colors across entire system. Use opacity for variations.</p>
+    </section>
+
+  </div>
+
+</body>
+</html>
